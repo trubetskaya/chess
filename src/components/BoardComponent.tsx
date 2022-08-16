@@ -13,17 +13,24 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard}) => {
     const [activeCell, setActiveCell] = useState<Cell | null>(null);
 
     function onClickCell(cell: Cell): void {
-        console.log('onClickCell');
-        console.log(activeCell);
-
-        setActiveCell(cell);
         if (activeCell !== null) {
-            // if (cell.figure.canMove) implement the step + killing the enemy's figure
-            // else implement that the cell is unavailable
-            // calculate enemy's check and mat
+            if (activeCell.figure?.canMove(cell)) {
+
+                cell.figure = activeCell.figure;
+                cell.figure.cell = cell;
+
+                activeCell.figure = null;
+
+                setActiveCell(null);
+            } else {
+                // can not move
+            }
         } else {
-            setActiveCell(cell);
-            // console.log(activeCell);
+            if (cell.figure !== null) {
+                setActiveCell(cell);
+            } else {
+
+            }
         }
     }
 
@@ -34,6 +41,7 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard}) => {
                     <React.Fragment key={index}>
                         {row.map(cell =>
                             <CellComponent
+                                key={cell.id}
                                 cell={cell}
                                 active={activeCell?.id === cell.id}
                                 click={onClickCell}
