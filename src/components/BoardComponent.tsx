@@ -2,40 +2,38 @@ import React, {FC, useState} from 'react';
 import CellComponent from "./CellComponent";
 import {Board} from "../models/Board";
 import {Cell} from "../models/Cell";
+import {Player} from "../models/Player";;
 
 interface BoardProps {
     board: Board;
     setBoard: (board: Board) => void;
+    activePlayer: Player;
+    swapPlayer: () => void;
 }
 
-const BoardComponent: FC<BoardProps> = ({board, setBoard}) => {
+const BoardComponent: FC<BoardProps> = ({board, setBoard, activePlayer, swapPlayer}) => {
 
     const [activeCell, setActiveCell] = useState<Cell | null>(null);
 
     function onClickCell(cell: Cell): void {
         if (activeCell !== null) {
             if (activeCell.figure?.canMove(cell)) {
-
-                cell.figure = activeCell.figure;
-                cell.figure.cell = cell;
-
-                activeCell.figure = null;
-
+                activeCell.moveFigure(cell);
                 setActiveCell(null);
-            } else {
-                // can not move
+                swapPlayer();
+                return;
             }
-        } else {
-            if (cell.figure !== null) {
-                setActiveCell(cell);
-            } else {
-
-            }
+        }
+        if (cell.figure !== null && cell.figure?.color === activePlayer?.color) {
+            setActiveCell(cell);
         }
     }
 
     return (
         <div>
+
+            <div className="active-player">Active player: {activePlayer.color}</div>
+
             <div className="board">
                 {board.cells.map((row, index) =>
                     <React.Fragment key={index}>

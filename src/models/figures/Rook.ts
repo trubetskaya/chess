@@ -13,7 +13,8 @@ export class Rook extends Figure {
 
     canMove(toCell: Cell): boolean {
         if (super.canMove(toCell)) {
-            return this.cell?.x === toCell.x || this.cell?.y === toCell.y;
+            return (this.cell?.x === toCell.x || this.cell?.y === toCell.y)
+                && this.validateLineDirection(this.cell, toCell);
         }
         return false;
     }

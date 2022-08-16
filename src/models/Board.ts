@@ -13,9 +13,9 @@ export class Board {
             const row: Cell[] = [];
             for (let j = 0; j < 6; j++) {
                 if (i % 2 === j % 2) {
-                    row.push(new Cell(i, j, Color.WHITE))
+                    row.push(new Cell(i, j, Color.WHITE, this))
                 } else {
-                    row.push(new Cell(i, j, Color.BLACK))
+                    row.push(new Cell(i, j, Color.BLACK, this))
                 }
             }
             this.cells.push(row);
