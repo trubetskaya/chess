@@ -11,8 +11,8 @@ export class King extends Figure {
         this.name = FigureNames.KING;
     }
 
-    canMove(toCell: Cell): boolean {
-        if (super.canMove(toCell)) {
+    canMove(toCell: Cell, check= false): boolean {
+        if (super.canMove(toCell, check)) {
             if (
                 this.cell
                 && (Math.abs(this.cell.x - toCell.x) <= 1)

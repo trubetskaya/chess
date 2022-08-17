@@ -2,7 +2,8 @@ import React, {FC, useState} from 'react';
 import CellComponent from "./CellComponent";
 import {Board} from "../models/Board";
 import {Cell} from "../models/Cell";
-import {Player} from "../models/Player";;
+import {Player} from "../models/Player";
+import {Color} from "../models/Color";
 
 interface BoardProps {
     board: Board;
@@ -20,6 +21,9 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, activePlayer, swapPlay
             if (activeCell.figure?.canMove(cell)) {
                 activeCell.moveFigure(cell);
                 setActiveCell(null);
+                if (board.announceCheckForColor(activePlayer.color === Color.WHITE ? Color.BLACK : Color.WHITE)) {
+                    setTimeout(()=>{alert('CHECK!')}, 100);
+                }
                 swapPlayer();
                 return;
             }

@@ -11,8 +11,8 @@ export class Bishop extends Figure {
         this.name = FigureNames.BISHOP;
     }
 
-    canMove(toCell: Cell): boolean {
-        if (super.canMove(toCell)) {
+    canMove(toCell: Cell, check= false): boolean {
+        if (super.canMove(toCell, check)) {
             if (
                 this.cell
                     && (Math.abs(this.cell.x - toCell.x) === Math.abs(this.cell.y - toCell.y))

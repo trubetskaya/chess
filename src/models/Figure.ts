@@ -24,14 +24,14 @@ export class Figure {
         this.name = FigureNames.FIGURE;
     }
 
-    canMove(toCell: Cell): boolean {
+    canMove(toCell: Cell, check: boolean = false): boolean {
         if (toCell.id === this.cell?.id) {
             return false;
         }
         if (toCell.figure?.color === this.color) {
             return false;
         }
-        if (toCell.figure?.name === FigureNames.KING) {
+        if (!check && toCell.figure?.name === FigureNames.KING) {
             return false;
         }
         return true;

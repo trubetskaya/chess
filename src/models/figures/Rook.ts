@@ -11,8 +11,8 @@ export class Rook extends Figure {
         this.name = FigureNames.ROOK;
     }
 
-    canMove(toCell: Cell): boolean {
-        if (super.canMove(toCell)) {
+    canMove(toCell: Cell, check= false): boolean {
+        if (super.canMove(toCell, check)) {
             return (this.cell?.x === toCell.x || this.cell?.y === toCell.y)
                 && this.validateLineDirection(this.cell, toCell);
         }

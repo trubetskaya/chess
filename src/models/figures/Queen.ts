@@ -11,8 +11,8 @@ export class Queen extends Figure {
         this.name = FigureNames.QUEEN;
     }
 
-    canMove(toCell: Cell): boolean {
-        if (super.canMove(toCell)) {
+    canMove(toCell: Cell, check= false): boolean {
+        if (super.canMove(toCell, check)) {
             // validate bishop-like step
             if (
                 this.cell
